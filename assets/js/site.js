@@ -18,6 +18,10 @@ if (year) year.textContent = new Date().getFullYear();
     records.push({title, kind, text:(title + ' ' + el.innerText).toLowerCase(), href:'#' + el.id});
   });
 
+  records.push(...[
+    'Enterprise Attendance & Biometric Integration','Booqat Beauty & Wellness Booking','HD Supply BPA SharePoint Workflow Migration','Zoho Creator & Zoho People Automation','MedGulf Dynamics 365 CRM Mockup','Heitman 25+ .NET and SharePoint Applications','Mattress Firm Merchandise Planning & Forecasting','Hightower Survey','Mattress Firm Comp 5.0','Teknowland STEM Education Backend','IHS Markit Shopify Integrations','Save the Children Lebanon RIMS','Faiz Chicago Delivery Platform','Faiz Chicago SMS Survey System','POS Pricing Program','Chatter Fox','Ticketing Central','Tickets.com Helper','Evenue Account Creator','Evenue Ticket Helper','Ticket Drop Checker','Haji Club Management System','Ticket Master Ticket Helper','POS Auto Broadcast','POS Auto Entry System','Ticket Master Downloader','Industrial ERP System','Education ERP System','Hospital Management System','PulseDrift','Junction Systems','Alora Salon SaaS','JunctionTools','Canadian Clinic Group Websites','Beauty Salon Management System','Outreach Marketing Agent','Ecommerce Audit Agent','AI-SEO-Bot','WhatsApp Business Platform'
+  ].map(title => ({title,kind:'PROJECT ARCHIVE',text:title.toLowerCase()+' enterprise software integration automation platform',href:'projects/'})));
+
   const defaults = [
     {title:'Selected engineering work',kind:'SECTION',text:'projects portfolio case studies',href:'#work'},
     {title:'Professional experience',kind:'SECTION',text:'career history royal cyber 7ctech it consultants',href:'#experience'},
