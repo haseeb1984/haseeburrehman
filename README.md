@@ -2,7 +2,7 @@
 
 A living portfolio for a Technical Lead and Full-Stack Engineer with 18+ years of experience building business-critical software, enterprise integrations, web platforms, and operational systems.
 
-**Portfolio:** [Open the live portfolio](https://haseeb1984.github.io/haseeburrehman/)  
+**Repository:** https://github.com/haseeb1984/haseeburrehman  
 **LinkedIn:** https://www.linkedin.com/in/haseeburrehman  
 **GitHub:** https://github.com/haseeb1984
 
