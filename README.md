@@ -1,39 +1,38 @@
 # Haseeb Ur Rehman — Professional Portfolio
 
-A premium, responsive portfolio and living resume for a Technical Lead / Full-Stack Engineer with 18+ years of software engineering experience.
+An editorial, executive-level engineering portfolio and living resume for a Technical Lead, Solution Architect and Senior Full-Stack Engineer with 19+ years of experience.
 
-## Public-facing site structure
-
-- `/` — editorial homepage, selected work, career timeline, capabilities and keyboard-accessible portfolio search
-- `/projects/` — broader project archive across Royal Cyber, 7cTech, IT Consultants and independent products
-- `/case-studies/` — representative project context, scope, approach and delivery boundaries
-- `/resume/` — editable HTML resume with browser Print / Save as PDF
+## Public site structure
+- `/` — signature profile, engineering perspective, selected work, capability areas and career overview
+- `/projects/` — detailed project index across independent products, Royal Cyber, 7cTech and IT Consultants
+- `/case-studies/` — explanatory architecture flows, engineering context, project scope and delivery boundaries
+- `/resume/` — master web resume based on the latest ATS resume and presales experience; browser Print / Save as PDF
 - `/404.html` — branded not-found page
 
-## Design & implementation
-
+## Design and implementation
 - Static HTML, CSS and vanilla JavaScript; no framework build step or database required
-- Responsive dark graphite / warm brass visual system
-- Search supports project names, experience, skills and capabilities; keyboard shortcuts: `/`, arrow keys, Enter and Escape
+- Responsive editorial design system using restrained typography, graphite/olive surfaces and warm brass accents
+- Inline SVG and CSS architecture diagrams are explicitly labelled as explanatory diagrams, not application screenshots
 - Semantic page structure, responsive layout, social preview metadata, Person JSON-LD, SVG favicon and Apache `.htaccess` defaults
-- Search is intentionally client-side; it does not transmit queries to a server
+- Designed for direct static hosting; Vercel is not required
 
 ## Accuracy and confidentiality
-
-The portfolio distinguishes client delivery, private work, independent products, mockups and in-progress repositories. MedGulf is explicitly described as a paid CRM mockup, not a production rollout. Private client work has no invented public demo. The corporate website status list is labelled as user-reported (November 2026), not independently audited. Historical performance figures are labelled as self-reported rather than current test results. Some private repository descriptions are intentionally limited until code review.
+- The master resume uses the latest ATS resume as the base and incorporates the presales responsibilities.
+- Client delivery, independent products, in-progress builds, private work and paid mockups are distinguished.
+- MedGulf is described as a paid client-specific CRM mockup, not a production rollout.
+- PulseDrift is described as an independent engineering project; production uptime or customer outcomes are not claimed.
+- Teknowland is described as backend development and support, not as a claim that the complete platform was built from scratch.
+- Private client work has no invented public demo. No private source code, credentials or client data are published.
+- Authentic product screenshots must be captured from accessible running applications or supplied original evidence. Architecture diagrams must not be presented as screenshots.
+- Historical performance and efficiency figures are labelled as reported project outcomes, not current independent measurements.
 
 ## Hosting
-
-This is a static site intended for direct deployment to Hostinger Business shared hosting. Vercel is not required. Upload the repository contents to the target website's document root (usually `public_html`), keeping `index.html` at the root and preserving the `assets/`, `projects/`, `case-studies/` and `resume/` folders.
-
-Before production launch:
-1. Confirm the target domain / subdomain in Hostinger.
-2. Connect the Hostinger Git deployment integration or upload the repository contents to the document root.
-3. Enable SSL and verify the HTTPS URL.
-4. Add the final canonical URL, sitemap and domain-specific SEO metadata once the production domain is confirmed.
-5. Test mobile layout, search, internal links, email/LinkedIn links and the print-to-PDF resume.
-6. Add only real, approved project screenshots and the final approved PDF resume; do not use invented mock screenshots.
+This is a static site intended for Hostinger Business shared hosting. Vercel is not required.
+1. Download the repository ZIP from GitHub.
+2. Extract the contents and upload the repository contents to the target website document root (usually `public_html`).
+3. Keep `index.html` at the root and preserve the `assets/`, `projects/`, `case-studies/` and `resume/` folders.
+4. Enable SSL and verify the HTTPS domain.
+5. Test desktop and mobile layouts, internal links, external project links and Print / Save PDF.
 
 ## Updating
-
-Keep this repository as the source of truth. Update the HTML/CSS/JS and resume content here, then deploy the same branch to Hostinger. The public portfolio URL can remain permanent while its content is updated.
+Keep this repository as the source of truth. Update HTML/CSS/JS and resume content here, then upload the same branch to Hostinger. The public portfolio URL can remain permanent while content is updated.
