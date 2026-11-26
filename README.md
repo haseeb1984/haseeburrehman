@@ -4,7 +4,8 @@ An editorial, executive-level engineering portfolio and living resume for a Tech
 
 ## Public site structure
 - `/` — signature profile, engineering perspective, selected work, capability areas and career overview
-- `/projects/` — detailed project index across independent products, Royal Cyber, 7cTech and IT Consultants
+- `/products/` — catalogue and individual overview pages for 10 independent software products
+- `/projects/` — 63 individually numbered project/property entries across independent products, Royal Cyber, 7cTech and IT Consultants; Royal Cyber's 15 corporate websites are listed as 15 separate entries, alongside 3 internal projects and 12 client projects
 - `/case-studies/` — explanatory architecture flows, engineering context, project scope and delivery boundaries
 - `/resume/` — master web resume based on the latest ATS resume and presales experience; browser Print / Save as PDF
 - `/404.html` — branded not-found page
@@ -30,7 +31,7 @@ An editorial, executive-level engineering portfolio and living resume for a Tech
 This is a static site intended for Hostinger Business shared hosting. Vercel is not required.
 1. Download the repository ZIP from GitHub.
 2. Extract the contents and upload the repository contents to the target website document root (usually `public_html`).
-3. Keep `index.html` at the root and preserve the `assets/`, `projects/`, `case-studies/` and `resume/` folders.
+3. Keep `index.html` at the root and preserve the `assets/`, `products/`, `projects/`, `case-studies/` and `resume/` folders.
 4. Enable SSL and verify the HTTPS domain.
 5. Test desktop and mobile layouts, internal links, external project links and Print / Save PDF.
 
