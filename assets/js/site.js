@@ -18,6 +18,14 @@ if(menuToggle&&primaryNavigation){
     menuToggle.setAttribute('aria-expanded','false');
     menuToggle.setAttribute('aria-label','Open navigation');
   }));
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&menuToggle.getAttribute('aria-expanded')==='true'){
+      primaryNavigation.classList.remove('nav-open');
+      menuToggle.setAttribute('aria-expanded','false');
+      menuToggle.setAttribute('aria-label','Open navigation');
+      menuToggle.focus();
+    }
+  });
 }
 
 const printResumeButton=document.getElementById('print-resume');
