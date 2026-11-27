@@ -1,8 +1,12 @@
 Options -Indexes
 ErrorDocument 404 /404.html
+
+# Compression
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml
 </IfModule>
+
+# Static asset caching
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/css "access plus 7 days"
@@ -15,10 +19,20 @@ ErrorDocument 404 /404.html
   ExpiresByType image/avif "access plus 30 days"
 </IfModule>
 
-# Baseline browser security headers
+# Browser security headers. CSP sources match the site's local scripts,
+# inline presentation styles, Google Fonts, and externally hosted HTTPS images.
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Permitted-Cross-Domain-Policies "none"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' https: data:; connect-src 'self'; frame-src 'none'; upgrade-insecure-requests"
+</IfModule>
+
+# Prevent accidental exposure of dotfiles and common backup/config artifacts.
+<IfModule mod_authz_core.c>
+  <FilesMatch "(^\.|\.env(?:\..*)?$|\.(?:ini|log|sql|bak|old|orig|save|swp|dist)$)">
+    Require all denied
+  </FilesMatch>
 </IfModule>
