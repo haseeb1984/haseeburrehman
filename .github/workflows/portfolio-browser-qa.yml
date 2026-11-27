@@ -39,7 +39,7 @@ jobs:
         if: success()
         run: |
           mkdir -p qa-output
-          zip -r qa-output/portfolio-hostinger-deploy.zip . -x './.git/*' './.github/*' './qa/*' './qa-output/*'
+          zip -r qa-output/portfolio-hostinger-deploy.zip . -x './.git/*' './.github/*' './qa/*' './qa-output/*' './node_modules/*' './package-lock.json' './npm-shrinkwrap.json'
           unzip -l qa-output/portfolio-hostinger-deploy.zip
       - name: Upload screenshots, resume PDF and deployment ZIP
         if: always()
