@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: portfolio-live-screenshot-capture
+  cancel-in-progress: false
+
 jobs:
   capture:
     if: "!contains(github.event.head_commit.message, '[skip screenshot capture]')"
