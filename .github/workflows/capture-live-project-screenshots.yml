@@ -33,6 +33,8 @@ jobs:
       - name: Crawl supplied live sites and capture pages
         run: |
           mkdir -p assets/projects/live-captures
+          : > assets/projects/live-captures/manifest.csv
+          : > assets/projects/live-captures/capture-errors.txt
           cat > /tmp/capture.cjs <<'NODE'
           const { chromium } = require('playwright');
           const fs = require('fs');
@@ -71,7 +73,7 @@ jobs:
                   await page.screenshot({path:path.join(out,filename),fullPage:true,animations:'disabled',timeout:30000});
                   const title = await page.title().catch(()=> '');
                   const status = response ? response.status() : 'unknown';
-                  fs.appendFileSync(path.join(out,'manifest.csv'), '"' + filename + '","' + finalUrl.replace(/"/g,'""') + '","' + title.replace(/"/g,'""') + '","' + status + '"\\n');
+                  fs.appendFileSync(path.join(out,'manifest.csv'), '"' + filename + '","' + finalUrl.replace(/"/g,'""') + '","' + title.replace(/"/g,'""') + '","' + status + '"\n');
                   captured++; count++;
                   if (count === 1) {
                     const links = await page.locator('a[href]').evaluateAll(as => as.map(a => a.href).filter(Boolean));
@@ -84,7 +86,7 @@ jobs:
                     }
                   }
                 } catch (e) {
-                  fs.appendFileSync(path.join(out,'capture-errors.txt'), url + ' :: ' + String(e).slice(0,300) + '\\n');
+                  fs.appendFileSync(path.join(out,'capture-errors.txt'), url + ' :: ' + String(e).slice(0,300) + '\n');
                 } finally { await page.close(); }
               }
             }
