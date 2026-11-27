@@ -93,7 +93,7 @@ jobs:
             if (!captured) process.exitCode = 1;
           })();
           NODE
-          node /tmp/capture.cjs
+          NODE_PATH="$PWD/node_modules" node /tmp/capture.cjs
 
       - name: Commit screenshots to the portfolio branch
         run: |
