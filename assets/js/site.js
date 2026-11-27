@@ -19,3 +19,6 @@ if(menuToggle&&primaryNavigation){
     menuToggle.setAttribute('aria-label','Open navigation');
   }));
 }
+
+const printResumeButton=document.getElementById('print-resume');
+if(printResumeButton)printResumeButton.addEventListener('click',()=>window.print());
