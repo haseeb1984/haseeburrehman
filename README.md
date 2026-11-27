@@ -40,7 +40,7 @@ Keep this repository as the source of truth. Update HTML/CSS/JS and resume conte
 
 ## Security baseline
 - Apache directory indexing is disabled and a custom 404 handler is configured.
-- The .htaccess baseline sets nosniff, a strict-origin referrer policy, same-origin framing protection, a restrictive Permissions Policy and a Content Security Policy.
+- The .htaccess baseline sets nosniff, a strict-origin-when-cross-origin referrer policy, same-origin framing protection, a restrictive Permissions Policy and a Content Security Policy.
 - The Content Security Policy allows only same-origin scripts, the Google Fonts stylesheet/font hosts used by the site, and HTTPS/data image sources required by the portfolio.
 - Dotfiles and common environment, log, database and backup artifact extensions are denied when Apache authorization directives are available.
 - These controls depend on the corresponding Apache modules and Hostinger's AllowOverride configuration. Verify the actual response headers and denied-file behavior after upload.
