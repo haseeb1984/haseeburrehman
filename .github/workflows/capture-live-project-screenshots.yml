@@ -65,7 +65,12 @@ jobs:
             'https://websphereguru.net/',
             'https://webspherehatsguru.com/',
             'https://www.monitorpro.io/',
-            'https://blockchain.royalcyber.com/'
+            'https://blockchain.royalcyber.com/',
+            'https://audit.juncsys.com/',
+            'https://outreach.juncsys.com/',
+            'https://legacymedicalclinic.ca/',
+            'https://springgreen-swallow-817806.hostingersite.com/',
+            'https://ghostwhite-wildcat-847385.hostingersite.com/'
           ];
           const out = 'assets/projects/live-captures';
           const slug = s => s.toLowerCase().replace('https://','').replace('http://','').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,90) || 'page';
@@ -86,7 +91,9 @@ jobs:
                   const response = await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
                   await page.waitForTimeout(1800);
                   const finalUrl = page.url();
+                  const finalPath = new URL(finalUrl).pathname.toLowerCase();
                   if (new URL(finalUrl).hostname !== base.hostname) { await page.close(); continue; }
+                  if (/\/(login|log-in|signin|sign-in|register|registration|forgot-password|forgotpassword|reset-password)(\/|$)/i.test(finalPath)) { await page.close(); continue; }
                   const filename = slug(finalUrl) + '.png';
                   await page.screenshot({path:path.join(out,filename),fullPage:true,animations:'disabled',timeout:30000});
                   const title = await page.title().catch(()=> '');
