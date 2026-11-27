@@ -30,6 +30,12 @@ ErrorDocument 404 /404.html
   Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' https: data:; connect-src 'self'; frame-src 'none'; upgrade-insecure-requests"
 </IfModule>
 
+# Block direct requests into version-control metadata directories if one is ever copied to the document root.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule (^|/)\.(git|svn|hg)(/|$) - [F,L,NC]
+</IfModule>
+
 # Prevent accidental exposure of dotfiles and common backup/config artifacts.
 <IfModule mod_authz_core.c>
   <FilesMatch "(^\.|\.env(?:\..*)?$|\.(?:ini|log|sql|bak|old|orig|save|swp|dist)$)">
