@@ -39,6 +39,7 @@ jobs:
           mkdir -p assets/projects/live-captures
           : > assets/projects/live-captures/manifest.csv
           : > assets/projects/live-captures/capture-errors.txt
+          curl -fL --retry 2 'https://raw.githubusercontent.com/haseeb1984/ecommerce-audit-agent/main/Meta%20Description%20SEO%20Audit%20Dashboard.png' -o assets/projects/live-captures/ecommerce-audit-agent-dashboard.png || echo 'Audit dashboard image unavailable; live capture will be used if possible.'
           cat > /tmp/capture.cjs <<'NODE'
           const { chromium } = require('playwright');
           const fs = require('fs');
