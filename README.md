@@ -37,3 +37,12 @@ This is a static site intended for Hostinger Business shared hosting. Vercel is 
 
 ## Updating
 Keep this repository as the source of truth. Update HTML/CSS/JS and resume content here, then upload the same branch to Hostinger. The public portfolio URL can remain permanent while content is updated.
+
+## Security baseline
+- Apache directory indexing is disabled and a custom 404 handler is configured.
+- The .htaccess baseline sets nosniff, a strict-origin referrer policy, same-origin framing protection, a restrictive Permissions Policy and a Content Security Policy.
+- The Content Security Policy allows only same-origin scripts, the Google Fonts stylesheet/font hosts used by the site, and HTTPS/data image sources required by the portfolio.
+- Dotfiles and common environment, log, database and backup artifact extensions are denied when Apache authorization directives are available.
+- These controls depend on the corresponding Apache modules and Hostinger's AllowOverride configuration. Verify the actual response headers and denied-file behavior after upload.
+- HSTS is intentionally not enabled in source until the final domain's HTTPS certificate and redirect behavior have been verified on the live host.
+- This is a static-site security baseline, not a substitute for Hostinger account security, DNS/registrar protection, malware scanning, backups or live vulnerability testing.
