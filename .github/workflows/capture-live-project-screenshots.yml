@@ -48,7 +48,7 @@ jobs:
             'https://www.faizchicago.com/sms'
           ];
           const out = 'assets/projects/live-captures';
-          const slug = s => s.toLowerCase().replace(/^https?:\\/\\//,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,90) || 'page';
+          const slug = s => s.toLowerCase().replace('https://','').replace('http://','').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,90) || 'page';
           (async () => {
             const browser = await chromium.launch({headless:true,args:['--no-sandbox']});
             let captured = 0;
