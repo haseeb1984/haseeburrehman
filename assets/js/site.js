@@ -4,3 +4,18 @@ if(contactEmail){
   document.querySelectorAll('[data-site-email-link]').forEach(link=>{link.href='mailto:'+contactEmail;});
   document.querySelectorAll('[data-site-email-text]').forEach(node=>{node.textContent=contactEmail;});
 }
+const menuToggle=document.querySelector('.menu-toggle');
+const primaryNavigation=document.getElementById('primary-navigation');
+if(menuToggle&&primaryNavigation){
+  menuToggle.addEventListener('click',()=>{
+    const isOpen=menuToggle.getAttribute('aria-expanded')==='true';
+    menuToggle.setAttribute('aria-expanded',String(!isOpen));
+    menuToggle.setAttribute('aria-label',isOpen?'Open navigation':'Close navigation');
+    primaryNavigation.classList.toggle('nav-open',!isOpen);
+  });
+  primaryNavigation.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+    primaryNavigation.classList.remove('nav-open');
+    menuToggle.setAttribute('aria-expanded','false');
+    menuToggle.setAttribute('aria-label','Open navigation');
+  }));
+}
