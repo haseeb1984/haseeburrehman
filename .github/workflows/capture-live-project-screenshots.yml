@@ -51,7 +51,21 @@ jobs:
             'https://alora.juncsys.com/',
             'https://chickenmania.juncsys.com/',
             'https://www.faizchicago.com/',
-            'https://www.faizchicago.com/sms'
+            'https://www.faizchicago.com/sms',
+            'https://www.royalcyber.com/',
+            'https://www.royalcyber.com/blog',
+            'https://www.royalcyber.com/digital',
+            'https://gotestpro.com/',
+            'https://mlopsexperts.com/',
+            'https://reopensolution.com/',
+            'https://3dddplus.com/',
+            'https://kafkaguru.com/',
+            'https://discountedhomesupplies.com/',
+            'https://webspherecommerceguru.com/',
+            'https://websphereguru.net/',
+            'https://webspherehatsguru.com/',
+            'https://www.monitorpro.io/',
+            'https://blockchain.royalcyber.com/'
           ];
           const out = 'assets/projects/live-captures';
           const slug = s => s.toLowerCase().replace('https://','').replace('http://','').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,90) || 'page';
