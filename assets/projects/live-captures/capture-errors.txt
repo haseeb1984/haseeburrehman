@@ -1,0 +1,24 @@
+https://mlopsexperts.com/ :: Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://mlopsexperts.com/
+Call log:
+  - navigating to "https://mlopsexperts.com/", waiting until "domcontentloaded"
+
+https://reopensolution.com/ :: Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://reopensolution.com/
+Call log:
+  - navigating to "https://reopensolution.com/", waiting until "domcontentloaded"
+
+https://kafkaguru.com/ :: Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://kafkaguru.com/
+Call log:
+  - navigating to "https://kafkaguru.com/", waiting until "domcontentloaded"
+
+https://webspherecommerceguru.com/ :: Error: page.goto: net::ERR_CONNECTION_REFUSED at https://webspherecommerceguru.com/
+Call log:
+  - navigating to "https://webspherecommerceguru.com/", waiting until "domcontentloaded"
+
+https://websphereguru.net/ :: Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://websphereguru.net/
+Call log:
+  - navigating to "https://websphereguru.net/", waiting until "domcontentloaded"
+
+https://blockchain.royalcyber.com/ :: Error: page.goto: net::ERR_NAME_NOT_RESOLVED at https://blockchain.royalcyber.com/
+Call log:
+  - navigating to "https://blockchain.royalcyber.com/", waiting until "domcontentloaded"
+
