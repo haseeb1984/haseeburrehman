@@ -1,0 +1,51 @@
+name: Portfolio browser QA
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [portfolio/refresh-homepage-resume-nov-2026]
+  workflow_dispatch:
+
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install browser test tools
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+      - name: Start local website
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/portfolio-server.log 2>&1 &
+          echo $! > /tmp/portfolio-server.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/portfolio-server.log
+          exit 1
+      - name: Run desktop, mobile, link and PDF checks
+        run: node qa/portfolio-browser-qa.cjs
+      - name: Build Hostinger upload ZIP
+        if: success()
+        run: |
+          mkdir -p qa-output
+          zip -r qa-output/portfolio-hostinger-deploy.zip . -x './.git/*' './.github/*' './qa/*' './qa-output/*' './node_modules/*' './package-lock.json' './npm-shrinkwrap.json'
+          unzip -l qa-output/portfolio-hostinger-deploy.zip
+      - name: Upload screenshots, resume PDF and deployment ZIP
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-browser-qa
+          path: |
+            qa-output/
+          if-no-files-found: warn

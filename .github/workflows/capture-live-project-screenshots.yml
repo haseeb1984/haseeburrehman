@@ -1,0 +1,136 @@
+name: Capture live project screenshots
+
+on:
+  push:
+    branches:
+      - portfolio/refresh-homepage-resume-nov-2026
+
+permissions:
+  contents: write
+
+concurrency:
+  group: portfolio-live-screenshot-capture
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    if: "!contains(github.event.head_commit.message, '[skip screenshot capture]')"
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out portfolio branch
+        uses: actions/checkout@v4
+        with:
+          ref: portfolio/refresh-homepage-resume-nov-2026
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install browser
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Crawl supplied live sites and capture pages
+        run: |
+          mkdir -p assets/projects/live-captures
+          : > assets/projects/live-captures/manifest.csv
+          : > assets/projects/live-captures/capture-errors.txt
+          curl -fL --retry 2 'https://raw.githubusercontent.com/haseeb1984/ecommerce-audit-agent/main/Meta%20Description%20SEO%20Audit%20Dashboard.png' -o assets/projects/live-captures/ecommerce-audit-agent-dashboard.png || echo 'Audit dashboard image unavailable; live capture will be used if possible.'
+          cat > /tmp/capture.cjs <<'NODE'
+          const { chromium } = require('playwright');
+          const fs = require('fs');
+          const path = require('path');
+          const seeds = [
+            'https://juncsys.com/',
+            'https://juncsys.com/pos-demo/',
+            'https://juncsys.com/store-demo/',
+            'https://junctiontools.com/',
+            'https://alora.juncsys.com/',
+            'https://chickenmania.juncsys.com/',
+            'https://www.faizchicago.com/',
+            'https://www.faizchicago.com/sms',
+            'https://www.royalcyber.com/',
+            'https://www.royalcyber.com/blog',
+            'https://www.royalcyber.com/digital',
+            'https://gotestpro.com/',
+            'https://mlopsexperts.com/',
+            'https://reopensolution.com/',
+            'https://3dddplus.com/',
+            'https://kafkaguru.com/',
+            'https://discountedhomesupplies.com/',
+            'https://webspherecommerceguru.com/',
+            'https://websphereguru.net/',
+            'https://webspherehatsguru.com/',
+            'https://www.monitorpro.io/',
+            'https://blockchain.royalcyber.com/',
+            'https://audit.juncsys.com/',
+            'https://outreach.juncsys.com/',
+            'https://legacymedicalclinic.ca/',
+            'https://springgreen-swallow-817806.hostingersite.com/',
+            'https://ghostwhite-wildcat-847385.hostingersite.com/'
+          ];
+          const out = 'assets/projects/live-captures';
+          const slug = s => s.toLowerCase().replace('https://','').replace('http://','').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,90) || 'page';
+          (async () => {
+            const browser = await chromium.launch({headless:true,args:['--no-sandbox']});
+            let captured = 0;
+            for (const seed of seeds) {
+              const base = new URL(seed);
+              const queue = [seed];
+              const seen = new Set();
+              let count = 0;
+              while (queue.length && count < 6) {
+                const url = queue.shift();
+                if (seen.has(url)) continue;
+                seen.add(url);
+                const page = await browser.newPage({viewport:{width:1440,height:1000},deviceScaleFactor:1});
+                try {
+                  const response = await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});
+                  await page.waitForTimeout(1800);
+                  const finalUrl = page.url();
+                  const finalPath = new URL(finalUrl).pathname.toLowerCase();
+                  if (new URL(finalUrl).hostname !== base.hostname) { await page.close(); continue; }
+                  if (/\/(login|log-in|signin|sign-in|register|registration|forgot-password|forgotpassword|reset-password)(\/|$)/i.test(finalPath)) { await page.close(); continue; }
+                  const filename = slug(finalUrl) + '.png';
+                  await page.screenshot({path:path.join(out,filename),fullPage:true,animations:'disabled',timeout:30000});
+                  const title = await page.title().catch(()=> '');
+                  const status = response ? response.status() : 'unknown';
+                  fs.appendFileSync(path.join(out,'manifest.csv'), '"' + filename + '","' + finalUrl.replace(/"/g,'""') + '","' + title.replace(/"/g,'""') + '","' + status + '"\n');
+                  captured++; count++;
+                  if (count === 1) {
+                    const links = await page.locator('a[href]').evaluateAll(as => as.map(a => a.href).filter(Boolean));
+                    for (const href of links) {
+                      try {
+                        const u = new URL(href);
+                        u.hash = '';
+                        if (u.hostname === base.hostname && !seen.has(u.href) && queue.length < 20) queue.push(u.href);
+                      } catch {}
+                    }
+                  }
+                } catch (e) {
+                  fs.appendFileSync(path.join(out,'capture-errors.txt'), url + ' :: ' + String(e).slice(0,300) + '\n');
+                } finally { await page.close(); }
+              }
+            }
+            await browser.close();
+            console.log('Captured screenshots:',captured);
+            if (!captured) process.exitCode = 1;
+          })();
+          NODE
+          NODE_PATH="$PWD/node_modules" node /tmp/capture.cjs
+
+      - name: Commit screenshots to the portfolio branch
+        run: |
+          if [ -n "$(git status --porcelain assets/projects/live-captures)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/projects/live-captures
+            git commit -m "Add crawled live project screenshots [skip screenshot capture]"
+            git push origin portfolio/refresh-homepage-resume-nov-2026
+          else
+            echo "No screenshot files were produced."
+          fi
